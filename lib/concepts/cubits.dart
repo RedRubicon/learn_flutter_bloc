@@ -1,8 +1,17 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 
 void main() {
-  // ignore: unused_local_variable
+  basicUsage();
+}
+
+void basicUsage() {
   final cubit = CounterCubit();
+  // ignore: avoid_print
+  print(cubit.state); // 0
+  cubit.increment();
+  // ignore: avoid_print
+  print(cubit.state); // 1
+  cubit.close();
 }
 
 class CounterCubit extends Cubit<int> {
