@@ -2,7 +2,11 @@ import 'package:bloc/bloc.dart';
 
 void main() async {
   // basicUsage();
-  streamUsage();
+  // streamUsage();
+  Bloc.observer = SimpleBlocObserver();
+  CounterCubit()
+    ..increment()
+    ..close();
 }
 
 void basicUsage() {
@@ -35,5 +39,14 @@ class CounterCubit extends Cubit<int> {
     super.onChange(change);
     // ignore: avoid_print
     print(change);
+  }
+}
+
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    // ignore: avoid_print
+    print('${bloc.runtimeType} $change');
   }
 }
