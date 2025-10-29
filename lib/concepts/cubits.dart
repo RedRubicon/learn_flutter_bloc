@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 
-void main() {
-  basicUsage();
+void main() async {
+  // basicUsage();
+  streamUsage();
 }
 
 void basicUsage() {
@@ -12,6 +13,16 @@ void basicUsage() {
   // ignore: avoid_print
   print(cubit.state); // 1
   cubit.close();
+}
+
+void streamUsage() async {
+  final cubit = CounterCubit();
+  // ignore: avoid_print
+  final subscription = cubit.stream.listen((value) => print(value));
+  cubit.increment();
+  await Future.delayed(Duration.zero);
+  await subscription.cancel();
+  await cubit.close();
 }
 
 class CounterCubit extends Cubit<int> {
