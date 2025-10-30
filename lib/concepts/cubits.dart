@@ -32,13 +32,23 @@ void streamUsage() async {
 class CounterCubit extends Cubit<int> {
   CounterCubit() : super(0);
 
-  void increment() => emit(state + 1);
+  void increment() {
+    addError(Exception('increment error'), StackTrace.current);
+    emit(state + 1);
+  }
 
   @override
   void onChange(Change<int> change) {
     super.onChange(change);
     // ignore: avoid_print
     print(change);
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    // ignore: avoid_print
+    print('$error \n$stackTrace');
+    super.onError(error, stackTrace);
   }
 }
 
