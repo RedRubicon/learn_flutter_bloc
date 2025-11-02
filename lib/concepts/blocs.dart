@@ -19,9 +19,22 @@ class CounterBloc extends Bloc<CounterEvent, int> {
   }
 }
 
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    // ignore: avoid_print
+    print('${bloc.runtimeType}, $change');
+    super.onChange(bloc, change);
+  }
+}
+
 void main() async {
   // basicUsage();
-  streamUsage();
+  // streamUsage();
+  Bloc.observer = SimpleBlocObserver();
+  CounterBloc()
+    ..add(CounterIncrementPressed())
+    ..close();
 }
 
 void basicUsage() async {
