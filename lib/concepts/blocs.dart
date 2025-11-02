@@ -13,7 +13,8 @@ class CounterBloc extends Bloc<CounterEvent, int> {
 }
 
 void main() async {
-  basicUsage();
+  // basicUsage();
+  streamUsage();
 }
 
 void basicUsage() async {
@@ -24,5 +25,15 @@ void basicUsage() async {
   await Future.delayed(Duration.zero);
   // ignore: avoid_print
   print(bloc.state);
+  await bloc.close();
+}
+
+void streamUsage() async {
+  final bloc = CounterBloc();
+  // ignore: avoid_print
+  final subscription = bloc.stream.listen(print);
+  bloc.add(CounterIncrementPressed());
+  await Future.delayed(Duration.zero);
+  await subscription.cancel();
   await bloc.close();
 }
