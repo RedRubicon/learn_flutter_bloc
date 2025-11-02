@@ -17,6 +17,13 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     print(change);
     super.onChange(change);
   }
+
+  @override
+  void onTransition(Transition<CounterEvent, int> transition) {
+    super.onTransition(transition);
+    // ignore: avoid_print
+    print(transition);
+  }
 }
 
 class SimpleBlocObserver extends BlocObserver {
@@ -31,7 +38,7 @@ class SimpleBlocObserver extends BlocObserver {
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     // ignore: avoid_print
-    print(transition);
+    print('${bloc.runtimeType}, $transition');
   }
 }
 
