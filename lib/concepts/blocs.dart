@@ -10,6 +10,13 @@ class CounterBloc extends Bloc<CounterEvent, int> {
       emit(state + 1);
     });
   }
+
+  @override
+  void onChange(Change<int> change) {
+    // ignore: avoid_print
+    print(change);
+    super.onChange(change);
+  }
 }
 
 void main() async {
