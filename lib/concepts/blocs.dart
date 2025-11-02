@@ -7,6 +7,7 @@ final class CounterIncrementPressed extends CounterEvent {}
 class CounterBloc extends Bloc<CounterEvent, int> {
   CounterBloc() : super(0) {
     on<CounterIncrementPressed>((event, emit) {
+      addError(Exception('Error'), StackTrace.current);
       emit(state + 1);
     });
   }
@@ -23,6 +24,13 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     super.onTransition(transition);
     // ignore: avoid_print
     print(transition);
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    // ignore: avoid_print
+    print('$error \n$stackTrace');
+    super.onError(error, stackTrace);
   }
 }
 
