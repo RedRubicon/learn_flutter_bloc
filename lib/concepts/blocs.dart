@@ -11,3 +11,18 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     });
   }
 }
+
+void main() async {
+  basicUsage();
+}
+
+void basicUsage() async {
+  final bloc = CounterBloc();
+  // ignore: avoid_print
+  print(bloc.state);
+  bloc.add(CounterIncrementPressed());
+  await Future.delayed(Duration.zero);
+  // ignore: avoid_print
+  print(bloc.state);
+  await bloc.close();
+}
